@@ -4,11 +4,16 @@
 
 <h1>Oregon Covid Testing Locations</h1>
 
-<GoogleMap @ref="@map1" Id="map1" Options="@mapOptions"></GoogleMap>
+<GoogleMap @ref="@map1" Id="map1" 
+           Options="@mapOptions"
+           OnAfterInit="@(async () => await OnAfterMapInitAsync())">
 
-@functions {
+</GoogleMap>
+
+@code {
     private GoogleMap map1;
     private MapOptions mapOptions;
+    //private Stack<Marker> markers = new Stack<Marker>();
 
     protected override void OnInitialized()
     {
@@ -22,5 +27,30 @@
             },
             MapTypeId = MapTypeId.Roadmap
         };
+    }
+
+    private async Task OnAfterMapInitAsync()
+    {     
+        await AddMarker("Douglas County Fairgrounds", 43.19579, -123.35926);
+    }
+
+
+    private async Task AddMarker(string label,double lat, double lng)
+    {
+        var marker = await Marker.CreateAsync(map1.JsRuntime, new MarkerOptions()
+        {
+            Position = new LatLngLiteral{ Lat = lat, Lng = lng},
+            Map = map1.InteropObject,
+            Label = label,
+            Icon = new Icon()
+            {
+                Url = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+            }
+        });
+
+ 
+        //markers.Push(marker);
+
+      
     }
 }
