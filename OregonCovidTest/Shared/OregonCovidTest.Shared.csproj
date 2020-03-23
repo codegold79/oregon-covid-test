@@ -4,4 +4,16 @@
     <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="CovidTestSites.csv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="CovidTestSites.csv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CsvHelper" Version="15.0.2" />
+  </ItemGroup>
+
 </Project>

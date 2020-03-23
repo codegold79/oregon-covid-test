@@ -1,6 +1,8 @@
 ﻿@page "/map"
 @using GoogleMapsComponents
 @using GoogleMapsComponents.Maps
+@using OregonCovidTest.Shared
+@inject CsvService PinService
 
 <h1>Oregon Covid Testing Locations</h1>
 
@@ -30,8 +32,13 @@
     }
 
     private async Task OnAfterMapInitAsync()
-    {     
-        await AddMarker("Douglas County Fairgrounds", 43.19579, -123.35926);
+    {
+        var pins = PinService.Pins;
+        foreach (var pin in pins)
+        {
+            await AddMarker(pin.Name,pin.Lat, pin.Lng);
+        }
+
     }
 
 

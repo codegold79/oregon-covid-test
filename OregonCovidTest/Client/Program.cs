@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Text;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using OregonCovidTest.Shared;
 
 namespace OregonCovidTest.Client
 {
@@ -15,6 +16,7 @@ namespace OregonCovidTest.Client
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddBaseAddressHttpClient();
+            builder.Services.AddSingleton<CsvService>();
 
             await builder.Build().RunAsync();
         }
